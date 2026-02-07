@@ -6,18 +6,18 @@ from uuid import UUID
 
 # User schemas
 class UserBase(BaseModel):
-    phone: str = Field(..., min_length=10, max_length=10, description="Phone number (10 digits)")
-    name: str = Field(..., min_length=3, description="User name")
+    phone: str = Field(..., min_length=8, max_length=15, description="Phone number")
+    name: str = Field(..., min_length=3, max_length=100, description="User name")
     national_id: Optional[str] = Field(None, min_length=11, max_length=11, description="National ID (11 digits)")
 
 
 class UserCreate(UserBase):
-    password: str = Field(..., min_length=6, description="Password")
+    password: str = Field(..., min_length=6, max_length=72, description="Password")
 
 
 class UserLogin(BaseModel):
-    phone: str = Field(..., min_length=10, max_length=10)
-    password: str = Field(..., min_length=6)
+    phone: str = Field(..., min_length=8, max_length=15)
+    password: str = Field(..., min_length=6, max_length=72)
 
 
 class UserUpdate(BaseModel):
