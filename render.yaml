@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: dot-api
+    plan: free
+    env: python
+    runtime: python-3.11.0
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: dot-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: 10080
+      - key: CORS_ORIGINS
+        value: "*"
+      - key: DEBUG
+        value: False
+
+databases:
+  - name: dot-db
+    databaseName: dot_database
+    user: dot_user
