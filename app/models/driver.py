@@ -1,5 +1,5 @@
 import uuid
-from sqlalchemy import Column, String, Integer, Enum as SQLEnum, ForeignKey
+from sqlalchemy import Column, String, Integer, Enum as SQLEnum, ForeignKey, DateTime
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from datetime import datetime
@@ -64,8 +64,8 @@ class Driver(Base):
     rejection_reason = Column(String, nullable=True)
     
     # Timestamps
-    created_at = Column(datetime, default=datetime.utcnow, nullable=False)
-    updated_at = Column(datetime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
     
     # Relationships
     user = relationship("User", backref="driver_profile")
